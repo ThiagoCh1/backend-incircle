@@ -1,3 +1,4 @@
+const Infrastructure = require("../model/Infrastructure");
 const Role = require("../model/Role");
 var User = require("../model/User");
 var UserRole = require("../model/UserRole");
@@ -16,8 +17,26 @@ controller.create = async (req, res) => {
     distrito,
     photo,
     role,
+    capacity,
+    productionType,
+    productionArea,
   } = req.body;
+  console.log("------------");
+  console.log("REQ", req.body);
+  console.log("------------");
+
   try {
+    const roleId = await Role.findAll({ where: { nameRole: role } });
+    console.log("------------");
+    console.log("role", roleId);
+    if (!roleId) {
+      res.status(400).json({
+        success: false,
+        message: "Perfil não cadastrado",
+      });
+      return;
+    }
+
     const data = await User.create({
       name: name,
       email: email,
@@ -27,20 +46,30 @@ controller.create = async (req, res) => {
       distrito: distrito,
       photo: photo,
     });
-    const roleId = await Role.findAll({ where: { nameRole: role } });
+    console.log("USER", data);
 
     const userRole = await UserRole.create({
       UserUserId: data.dataValues.userId,
       RoleRoleId: roleId[0].dataValues.roleId,
     });
+    console.log("USERROLE", data);
+
+    const infrastructure = await Infrastructure.create({
+      capacity: capacity,
+      productionType: productionType,
+      productionArea: productionArea,
+      UserUserId: data.dataValues.userId,
+    });
+    console.log("USERROLE", infrastructure);
 
     res.status(200).json({
       success: true,
+      message: "Usuário cadastrado com sucesso!",
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Erro na criação",
+      message: "Erro na criação: " + error,
     });
   }
 };

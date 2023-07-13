@@ -10,7 +10,7 @@ const Infrastructure = sequelize.define('Infrastructure', {
     },
     capacity: Sequelize.FLOAT,
     productionType: Sequelize.STRING,
-    ProductionArea: Sequelize.STRING,
+    productionArea: Sequelize.STRING,
     
   }, {
     timestamps: false

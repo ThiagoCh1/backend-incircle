@@ -24,23 +24,15 @@ app.use((req, res, next) => {
 
 //Rotas
 
-app.use("/user", userRouters);
-app.use("/offer", offerRouters);
-app.use("/form", formRouters);
-app.use("/role", roleRouters);
-app.use("/infrastructure", infrastructureRouters);
+  app.use("/user", userRouters);
+  app.use("/offer", offerRouters);
+  app.use("/form", formRouters);
+  app.use("/role", roleRouters);
+  app.use("/infrastructure", infrastructureRouters);
+  app.use("/", (req, res) => {
+    res.send("Hello World");
+  });
 
-
-app.use("/teste", (req, res) => {
-  res.send("Rota TESTE.");
-});
-app.use("/", (req, res) => {
-  res.send("Hello World");
-});
-
-// importação de rotas [1]
-
-//Rota
 
 app.listen(app.get("port"), () => {
   console.log("Start server on port " + app.get("port"));

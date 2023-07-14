@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false, // You can set this to true if your certificate is signed by a trusted CA
+        rejectUnauthorized: false, 
       },
     },
   }

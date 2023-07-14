@@ -21,18 +21,15 @@ controller.create = async (req, res) => {
     productionType,
     productionArea,
   } = req.body;
-  console.log("------------");
-  console.log("REQ", req.body);
-  console.log("------------");
+  
 
   try {
     const roleId = await Role.findAll({ where: { nameRole: role } });
-    console.log("------------");
-    console.log("role", roleId);
+    
     if (!roleId) {
       res.status(400).json({
         success: false,
-        message: "Perfil não cadastrado",
+        message: "Perfil não registado",
       });
       return;
     }
@@ -63,8 +60,7 @@ controller.create = async (req, res) => {
     console.log("USERROLE", infrastructure);
 
     res.status(200).json({
-      success: true,
-      message: "Usuário cadastrado com sucesso!",
+      success: true
     });
   } catch (error) {
     res.status(500).json({

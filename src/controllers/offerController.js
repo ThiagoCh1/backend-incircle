@@ -29,7 +29,6 @@ controller.create = async (req, res) => {
   const { quantity, priceEnergy, totalPrice, UserUserId } = req.body;
   const publishDate = new Date();
   const updateDate = new Date();
-  // User.findAll
   // create
   const data = await Offer.create({
     quantity: quantity,
@@ -62,8 +61,6 @@ controller.update = async (req, res) => {
     });
     return;
   }
-  console.log("------------------");
-  console.log(req.body);
 
   const updateDate = new Date();
 
@@ -79,7 +76,6 @@ controller.update = async (req, res) => {
         where: { offerId: req.body.id },
       }
     );
-    console.log("offerUpdate", offerUpdate);
 
     if (offerUpdate == 1) {
       res.status(200).json({

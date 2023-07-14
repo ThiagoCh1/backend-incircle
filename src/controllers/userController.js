@@ -9,7 +9,14 @@ var Contract = require("../model/Contract");
 var sequelize = require("../model/database");
 
 const controller = {};
-sequelize.sync();
+sequelize.sync().then(() => {
+  Role.create({
+    nameRole: "vendedor",
+  });
+  Role.create({
+    nameRole: "comprador",
+  });
+});
 
 controller.list = async (req, res) => {
   const data = await User.findAll({})
